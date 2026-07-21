@@ -37,7 +37,40 @@ export default function ZeroGravityIntro({ onComplete }: { onComplete: () => voi
     return () => clearInterval(interval);
   }, [onComplete]);
 
+  const playSciFiSound = () => {
+    try {
+      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+      
+      // Main oscillator for the "warp/engage" tone
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+
+      osc.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      // Sci-fi sweeping pitch
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(200, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.3);
+      osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.6);
+
+      // Amplitude envelope (fade in and out)
+      gainNode.gain.setValueAtTime(0, ctx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.1);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6);
+
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.6);
+    } catch (e) {
+      // Gracefully ignore if audio context is blocked by browser policies
+      console.log("Audio not supported or blocked");
+    }
+  };
+
   const handleEnterExperience = () => {
+    playSciFiSound();
     setStage(3); // Stage 3: Exit animation
     sessionStorage.setItem("hasSeenIntro", "true");
     
