@@ -97,13 +97,14 @@ export default function Footer() {
         </div>
 
         {/* Column 2: Secondary Navigation (Quick Links) */}
+        {/* Column 2: Secondary Navigation (Quick Links) */}
         <div className="flex flex-col gap-6">
           <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-100">Quick Links</h3>
           <ul className="flex flex-col gap-4">
             {[
               { name: "Home", path: "/" },
               { name: "Services", path: "/services" },
-              { name: "Portfolios / Case Studies", path: "/portfolio" },
+              { name: "Portfolios / Case Studies", path: "/#portfolio" },
               { name: "About Us / Our Process", path: "/about" },
               { name: "Contact Page", path: "/contact" },
             ].map((link) => (
@@ -132,7 +133,7 @@ export default function Footer() {
             ].map((post, idx) => (
               <li key={idx}>
                 <Link 
-                  href="#" 
+                  href="/contact" 
                   className="group flex flex-col gap-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded p-1 -ml-1"
                 >
                   <span className="text-sm text-zinc-300 group-hover:text-white transition-colors leading-tight">
@@ -153,17 +154,19 @@ export default function Footer() {
           
           <div className="flex flex-wrap items-center gap-3">
             {[
-              { icon: LinkedinIcon, href: "#", label: "LinkedIn Profile" },
-              { icon: TwitterIcon, href: "#", label: "Twitter Profile" },
-              { icon: GithubIcon, href: "#", label: "GitHub Repository" },
-              { icon: YoutubeIcon, href: "#", label: "YouTube Channel" },
-              { icon: InstagramIcon, href: "#", label: "Instagram Profile" },
+              { icon: LinkedinIcon, href: "https://linkedin.com", label: "LinkedIn Profile" },
+              { icon: TwitterIcon, href: "https://x.com", label: "Twitter Profile" },
+              { icon: GithubIcon, href: "https://github.com/priyanshu240/pimix.ai", label: "GitHub Repository" },
+              { icon: YoutubeIcon, href: "https://youtube.com", label: "YouTube Channel" },
+              { icon: InstagramIcon, href: "https://instagram.com", label: "Instagram Profile" },
             ].map((social, idx) => {
               const Icon = social.icon;
               return (
                 <a 
                   key={idx} 
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.label}
                   className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-emerald-500/20 hover:border-emerald-500/50 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
@@ -194,10 +197,10 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} Antigravity. All rights reserved.
         </p>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-          <Link href="/privacy" className="text-xs text-zinc-500 hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-emerald-500 rounded px-1">Privacy Policy</Link>
-          <Link href="/terms" className="text-xs text-zinc-500 hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-emerald-500 rounded px-1">Terms of Service</Link>
-          <Link href="/cookies" className="text-xs text-zinc-500 hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-emerald-500 rounded px-1">Cookie Preferences</Link>
-          <Link href="/accessibility" className="text-xs text-zinc-500 hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-emerald-500 rounded px-1">Accessibility Statement</Link>
+          <Link href="/legal#privacy" className="text-xs text-zinc-500 hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-emerald-500 rounded px-1">Privacy Policy</Link>
+          <Link href="/legal#terms" className="text-xs text-zinc-500 hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-emerald-500 rounded px-1">Terms of Service</Link>
+          <Link href="/legal#cookies" className="text-xs text-zinc-500 hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-emerald-500 rounded px-1">Cookie Preferences</Link>
+          <Link href="/legal#accessibility" className="text-xs text-zinc-500 hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-emerald-500 rounded px-1">Accessibility Statement</Link>
         </div>
       </div>
 

@@ -37,7 +37,7 @@ export default function ScrollytellingPortfolio() {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.66%"]);
 
   return (
-    <section ref={containerRef} className="relative h-[300vh] bg-transparent">
+    <section id="portfolio" ref={containerRef} className="relative h-[300vh] bg-transparent">
       {/* Changed justify-center to pt-32 to prevent top clipping on short screens, removed overflow-hidden */}
       <div className="sticky top-0 h-screen flex flex-col items-center pt-24 md:pt-32">
         
