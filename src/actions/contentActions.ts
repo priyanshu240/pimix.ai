@@ -101,3 +101,88 @@ export async function updateContent(newContent: any) {
     };
   }
 }
+
+const leadsFilePath = path.join(process.cwd(), "src", "data", "leads.json");
+
+export async function submitContactMessage(message: { name: string; phone: string; email: string }) {
+  const newMessage = {
+    ...message,
+    timestamp: new Date().toISOString()
+  };
+
+  if (hasKVCredentials()) {
+    try {
+      const dataStr = await runKVCommand(["GET", "contact_messages"]);
+      let messages = [];
+      if (dataStr) {
+        messages = JSON.parse(dataStr);
+      }
+      messages.unshift(newMessage);
+      await runKVCommand(["SET", "contact_messages", JSON.stringify(messages)]);
+      return { success: true };
+    } catch (error) {
+      console.error("Failed to save contact message to KV:", error);
+    }
+  }
+
+  // Fallback to local file
+  try {
+    let messages = [];
+    if (fs.existsSync(leadsFilePath)) {
+      const fileContents = fs.readFileSync(leadsFilePath, "utf8");
+      messages = JSON.parse(fileContents);
+    }
+    messages.unshift(newMessage);
+    fs.writeFileSync(leadsFilePath, JSON.stringify(messages, null, 2), "utf8");
+    return { success: true };
+  } catch (error) {
+    console.error("Error writing leads.json:", error);
+    return { success: false, error: "Failed to write to local lead storage." };
+  }
+}
+
+export async function getContactMessages() {
+  if (hasKVCredentials()) {
+    try {
+      const dataStr = await runKVCommand(["GET", "contact_messages"]);
+      if (dataStr) {
+        return { success: true, messages: JSON.parse(dataStr) };
+      }
+      return { success: true, messages: [] };
+    } catch (error) {
+      console.error("Failed to fetch contact messages from KV:", error);
+    }
+  }
+
+  // Fallback to local file
+  try {
+    if (fs.existsSync(leadsFilePath)) {
+      const fileContents = fs.readFileSync(leadsFilePath, "utf8");
+      return { success: true, messages: JSON.parse(fileContents) };
+    }
+    return { success: true, messages: [] };
+  } catch (error) {
+    console.error("Error reading leads.json:", error);
+    return { success: false, messages: [] };
+  }
+}
+
+export async function clearContactMessages() {
+  if (hasKVCredentials()) {
+    try {
+      await runKVCommand(["SET", "contact_messages", JSON.stringify([])]);
+      return { success: true };
+    } catch (error) {
+      console.error("Failed to clear contact messages in KV:", error);
+    }
+  }
+
+  // Fallback to local file
+  try {
+    fs.writeFileSync(leadsFilePath, JSON.stringify([], null, 2), "utf8");
+    return { success: true };
+  } catch (error) {
+    console.error("Error clearing leads.json:", error);
+    return { success: false };
+  }
+}

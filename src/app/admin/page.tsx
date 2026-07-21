@@ -1,14 +1,36 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useContent } from "@/contexts/ContentContext";
-import { updateContent } from "@/actions/contentActions";
-import { Save, AlertCircle, CheckCircle, Database, LayoutTemplate, MessageSquare, Terminal, Cpu, Bot, Eye, Mail } from "lucide-react";
+import { updateContent, getContactMessages, clearContactMessages } from "@/actions/contentActions";
+import { Save, AlertCircle, CheckCircle, Database, LayoutTemplate, MessageSquare, Terminal, Cpu, Bot, Eye, Mail, Trash2 } from "lucide-react";
 
 export default function AdminDashboard() {
   const content = useContent();
   const [formData, setFormData] = useState(content);
   const [status, setStatus] = useState<"idle" | "saving" | "success" | "error">("idle");
+  const [messages, setMessages] = useState<{ name: string; phone: string; email: string; timestamp: string }[]>([]);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const res = await getContactMessages();
+      if (res.success) {
+        setMessages(res.messages);
+      }
+    };
+    fetchMessages();
+  }, []);
+
+  const handleClearMessages = async () => {
+    if (confirm("Are you sure you want to delete all contact messages?")) {
+      const res = await clearContactMessages();
+      if (res.success) {
+        setMessages([]);
+      } else {
+        alert("Failed to clear messages");
+      }
+    }
+  };
 
   const handleChange = (section: string, field: string, value: string) => {
     setFormData(prev => ({
@@ -436,6 +458,44 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+
+          {/* LEADS SECTION */}
+          <section className="glass-panel rounded-2xl p-6 md:p-8">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+              <h2 className="text-xl font-bold uppercase tracking-widest text-emerald-500 flex items-center gap-2">
+                <Mail className="w-5 h-5" /> Form Submissions ({messages.length})
+              </h2>
+              {messages.length > 0 && (
+                <button 
+                  onClick={handleClearMessages}
+                  className="text-xs text-red-400 hover:text-red-300 font-semibold flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-500/20 hover:border-red-500/40 bg-red-500/5 transition-all cursor-pointer"
+                >
+                  <Trash2 className="w-3.5 h-3.5" /> Clear Messages
+                </button>
+              )}
+            </div>
+            
+            <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+              {messages.length === 0 ? (
+                <p className="text-zinc-500 text-sm text-center py-6">No contact form messages received yet.</p>
+              ) : (
+                messages.map((msg, i) => (
+                  <div key={i} className="border border-white/5 bg-white/[0.01] p-4 rounded-xl flex flex-col gap-2 text-sm relative">
+                    <span className="text-[10px] text-zinc-500 absolute top-4 right-4 font-mono">
+                      {new Date(msg.timestamp).toLocaleString()}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-white text-base">{msg.name}</span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-zinc-400 text-xs mt-1">
+                      <div><span className="text-zinc-500 uppercase tracking-wider font-semibold mr-1">Phone:</span> {msg.phone}</div>
+                      <div><span className="text-zinc-500 uppercase tracking-wider font-semibold mr-1">Email:</span> {msg.email}</div>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </section>
 

@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, User, Phone, Send, Sparkles, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
+import { submitContactMessage } from "@/actions/contentActions";
 
 // Dynamically import 3D canvas and morphing globe scene
 const SceneCanvas = dynamic(() => import("@/components/three/SceneCanvas"), { ssr: false });
@@ -84,10 +85,13 @@ export default function Contact() {
     if (!isValid) return;
 
     setIsSubmitting(true);
-    // Simulate API call to secure the lead
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const res = await submitContactMessage(form);
     setIsSubmitting(false);
-    setIsSubmitted(true);
+    if (res.success) {
+      setIsSubmitted(true);
+    } else {
+      alert("Failed to submit message: " + (res.error || "Please try again."));
+    }
   };
 
   return (
