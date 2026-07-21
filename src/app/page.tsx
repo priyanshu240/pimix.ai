@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Rocket, Box, ChevronRight, Zap } from "lucide-react";
 import { Canvas } from "@react-three/fiber";
 import HeroScene from "@/components/three/HeroScene";
-import TestimonialStack from "@/components/TestimonialStack";
+import TeamShowcase from "@/components/TeamShowcase";
 import AsciiGlitchText from "@/components/AsciiGlitchText";
 import ImageTrail from "@/components/ImageTrail";
 import HorizontalGallery from "@/components/HorizontalGallery";
@@ -19,23 +19,7 @@ import ScrollThemeBackground from "@/components/ScrollThemeBackground";
 import ZeroGravityIntro from "@/components/ZeroGravityIntro";
 import { useContent } from "@/contexts/ContentContext";
 
-const testimonialsData = [
-  {
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-    title: "Revolutionary ROI",
-    description: "piMix transformed our autonomous outreach, closing deals while we slept.",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
-    title: "Flawless Execution",
-    description: "The AI agent integration was seamless and instantly boosted our conversion rate.",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
-    title: "Elite Marketing",
-    description: "We are reaching audiences we never thought possible thanks to their generative tech.",
-  },
-];
+
 
 export default function Home() {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -125,20 +109,20 @@ export default function Home() {
         <HorizontalGallery />
       </div>
 
-      {/* Testimonials Showcase - Stacked Design */}
+      {/* Our Team Section */}
       <section className="relative w-full z-20 pt-20 pb-32">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col items-center text-center gap-4 mb-16">
             <h2 className="font-display text-2xl sm:text-4xl font-extrabold uppercase tracking-tight text-[var(--foreground)]">
-              Curated Masterpieces
+              Our Team
             </h2>
             <div className="h-0.5 w-16 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] rounded-full" />
             <p className="text-xs sm:text-sm text-[var(--foreground)]/60 max-w-md font-medium">
-              Explore our latest works in an elegant stacked presentation mode.
+              The masterminds behind the zero-gravity autonomous marketing ecosystem.
             </p>
           </div>
 
-          <TestimonialStack testimonials={testimonialsData} />
+          <TeamShowcase />
         </div>
       </section>
     </div>
