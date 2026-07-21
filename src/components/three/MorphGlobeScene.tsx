@@ -117,9 +117,8 @@ export default function MorphGlobeScene({ activeField, textLength, isValid }: Mo
   // Color dynamics: cyan/violet by default, electric pink/purple when typing, bright neon green when form is valid
   const materialColor = useMemo(() => {
     if (isValid) return new THREE.Color("#10b981"); // neon green
-    if (activeField === "message") return new THREE.Color("#ec4899"); // pink
+    if (activeField === "phone") return new THREE.Color("#ec4899"); // pink
     if (activeField === "email") return new THREE.Color("#06b6d4"); // cyan
-    if (activeField === "company") return new THREE.Color("#f43f5e"); // rose
     if (activeField === "name") return new THREE.Color("#a855f7"); // purple
     return new THREE.Color("#6366f1"); // default indigo
   }, [activeField, isValid]);
