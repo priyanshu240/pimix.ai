@@ -97,7 +97,7 @@ function SandboxVisualizer({ mode }: { mode: Mode }) {
       groupRef.current.rotation.z += delta * 0.2;
        if (coreRef.current) {
          coreRef.current.scale.setScalar(THREE.MathUtils.lerp(coreRef.current.scale.x, 1, 0.05));
-         coreRef.current.material.color.setHex(0x0088ff);
+         (coreRef.current.material as any).color.setHex(0x0088ff);
       }
     }
 
@@ -110,7 +110,7 @@ function SandboxVisualizer({ mode }: { mode: Mode }) {
          // Pulsate core color
          const pulse = (Math.sin(t * 8) + 1) / 2;
          const color = new THREE.Color().setHSL(0.8, 1, 0.5 + pulse * 0.3); // Purple/Pink
-         coreRef.current.material.color.copy(color);
+         (coreRef.current.material as any).color.copy(color);
       }
     } else {
         if (groupRef.current) groupRef.current.scale.setScalar(THREE.MathUtils.lerp(groupRef.current.scale.x, 1, 0.1));
