@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useContent } from "@/contexts/ContentContext";
 import { updateContent } from "@/actions/contentActions";
-import { Save, AlertCircle, CheckCircle, Database, LayoutTemplate, MessageSquare, Terminal } from "lucide-react";
+import { Save, AlertCircle, CheckCircle, Database, LayoutTemplate, MessageSquare, Terminal, Cpu, Bot, Eye, Mail } from "lucide-react";
 
 export default function AdminDashboard() {
   const content = useContent();
@@ -18,6 +18,36 @@ export default function AdminDashboard() {
         [field]: value
       }
     }));
+  };
+
+  const handleServiceChange = (index: number, field: "title" | "desc", value: string) => {
+    setFormData(prev => {
+      const updatedServices = [...prev.services];
+      updatedServices[index] = {
+        ...updatedServices[index],
+        [field]: value
+      };
+      return {
+        ...prev,
+        services: updatedServices
+      };
+    });
+  };
+
+  const handleServiceSpecChange = (serviceIndex: number, specIndex: number, value: string) => {
+    setFormData(prev => {
+      const updatedServices = [...prev.services];
+      const updatedSpecs = [...updatedServices[serviceIndex].specs];
+      updatedSpecs[specIndex] = value;
+      updatedServices[serviceIndex] = {
+        ...updatedServices[serviceIndex],
+        specs: updatedSpecs
+      };
+      return {
+        ...prev,
+        services: updatedServices
+      };
+    });
   };
 
   const handleSave = async () => {
@@ -272,6 +302,139 @@ export default function AdminDashboard() {
                     <label className="block text-sm font-medium text-zinc-400 mb-2">Lead Qualification Response (Pricing/Hire)</label>
                     <textarea value={formData.agent.hireResponse} onChange={(e) => handleChange("agent", "hireResponse", e.target.value)} rows={3} className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors resize-none" />
                  </div>
+              </div>
+            </div>
+          </section>
+
+          {/* SERVICES SECTION */}
+          <section className="glass-panel rounded-2xl p-6 md:p-8">
+            <h2 className="text-xl font-bold uppercase tracking-widest text-emerald-500 mb-6 border-b border-white/10 pb-2 flex items-center gap-2">
+              <Database className="w-5 h-5" /> Services & Offerings
+            </h2>
+            
+            <div className="space-y-8">
+              {formData.services.map((service, index) => {
+                const colors = index === 0 ? "text-violet-400" : index === 1 ? "text-cyan-400" : "text-pink-400";
+                return (
+                  <div key={service.id} className="border border-white/5 bg-white/[0.01] p-6 rounded-xl space-y-6">
+                    <h3 className={`text-base font-bold uppercase tracking-wider ${colors} flex items-center gap-2 border-b border-white/5 pb-2`}>
+                      {index === 0 ? <Cpu className="w-4 h-4" /> : index === 1 ? <Bot className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      Card {index + 1}: {service.title}
+                    </h3>
+                    
+                    <div className="grid grid-cols-1 gap-6">
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">Card Title</label>
+                        <input 
+                          type="text" 
+                          value={service.title}
+                          onChange={(e) => handleServiceChange(index, "title", e.target.value)}
+                          className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">Card Description</label>
+                        <textarea 
+                          value={service.desc}
+                          onChange={(e) => handleServiceChange(index, "desc", e.target.value)}
+                          rows={2}
+                          className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors resize-none"
+                        />
+                      </div>
+
+                      <div className="space-y-4">
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400 border-b border-white/5 pb-1">Technical Integrations (4 Bullet Points)</label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {service.specs.map((spec, specIdx) => (
+                            <div key={specIdx}>
+                              <label className="block text-[10px] text-zinc-500 mb-1.5">Integration Point {specIdx + 1}</label>
+                              <input 
+                                type="text" 
+                                value={spec}
+                                onChange={(e) => handleServiceSpecChange(index, specIdx, e.target.value)}
+                                className="w-full bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-xs"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* CONTACT US SECTION */}
+          <section className="glass-panel rounded-2xl p-6 md:p-8">
+            <h2 className="text-xl font-bold uppercase tracking-widest text-emerald-500 mb-6 border-b border-white/10 pb-2 flex items-center gap-2">
+              <Mail className="w-5 h-5" /> Contact Us Section
+            </h2>
+            
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-zinc-400 mb-2">Section Badge</label>
+                  <input 
+                    type="text" 
+                    value={formData.contact.badge}
+                    onChange={(e) => handleChange("contact", "badge", e.target.value)}
+                    className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-zinc-400 mb-2">Title Prefix</label>
+                  <input 
+                    type="text" 
+                    value={formData.contact.titlePrefix}
+                    onChange={(e) => handleChange("contact", "titlePrefix", e.target.value)}
+                    className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-zinc-400 mb-2">Title Highlight</label>
+                  <input 
+                    type="text" 
+                    value={formData.contact.titleHighlight}
+                    onChange={(e) => handleChange("contact", "titleHighlight", e.target.value)}
+                    className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-zinc-400 mb-2">Section Description</label>
+                <textarea 
+                  value={formData.contact.description}
+                  onChange={(e) => handleChange("contact", "description", e.target.value)}
+                  rows={2}
+                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors resize-none"
+                />
+              </div>
+
+              <div className="mt-8 border-t border-white/10 pt-6 space-y-6">
+                <h3 className="text-sm font-bold uppercase text-zinc-500">Success State Messaging</h3>
+                <div className="grid grid-cols-1 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-400 mb-2">Success Title</label>
+                    <input 
+                      type="text" 
+                      value={formData.contact.successTitle}
+                      onChange={(e) => handleChange("contact", "successTitle", e.target.value)}
+                      className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-400 mb-2">Success Description</label>
+                    <textarea 
+                      value={formData.contact.successDescription}
+                      onChange={(e) => handleChange("contact", "successDescription", e.target.value)}
+                      rows={2}
+                      className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors resize-none"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </section>

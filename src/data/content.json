@@ -31,5 +31,48 @@
     "agentMsg1": "I am an AI assistant integrated directly into the DOM of this website. I don't just answer questions—I can physically control the browser.",
     "agentMsg2": "Try giving me a command like 'scroll down', 'red theme', or type 'hire' to book a consultation.",
     "hireResponse": "Every project we engineer is entirely custom based on your brand's unique requirements. Shall I open the booking calendar so we can discuss your vision? (Type 'yes' to proceed)"
+  },
+  "services": [
+    {
+      "id": "llm",
+      "title": "Custom LLM Training",
+      "desc": "Fine-tune open-weights neural networks targeting enterprise vocabularies. We deliver deep learning optimizations aligned with local knowledge bounds.",
+      "specs": [
+        "LoRA, QLoRA & Full Parameter Tuning",
+        "Deep RAG Integration Frameworks",
+        "Quantization & Edge Node Packing",
+        "Synthesized Training Data Generation"
+      ]
+    },
+    {
+      "id": "agents",
+      "title": "Autonomous Agents",
+      "desc": "Orchestrate multi-agent networks capable of stateful task execution, external tool utilization, and reasoning-driven loops (ReAct / CoT).",
+      "specs": [
+        "Swarm Orchestration & Event Buses",
+        "Function Calling & Webhook Execution",
+        "Long-term Vector Memory Nodes",
+        "Human-in-the-Loop Gateway Portals"
+      ]
+    },
+    {
+      "id": "vision",
+      "title": "Computer Vision Orchestrations",
+      "desc": "Deploy neural pipelines specialized in live stream classification, multi-object tracking, and zero-shot visual detection at scale.",
+      "specs": [
+        "Edge Acceleration (TensorRT/ONNX)",
+        "Zero-Shot Detection & Segment Anything",
+        "Real-Time Spatial Vector Tracking",
+        "High-Throughput Stream Ingestion"
+      ]
+    }
+  ],
+  "contact": {
+    "badge": "Get In Touch",
+    "titlePrefix": "Contact",
+    "titleHighlight": "Us",
+    "description": "Reach out to us with your details. We will get back to you shortly to discuss your custom project requirements.",
+    "successTitle": "Message Sent",
+    "successDescription": "Thank you for reaching out! We have received your contact details successfully and our team will get in touch with you shortly."
   }
 }

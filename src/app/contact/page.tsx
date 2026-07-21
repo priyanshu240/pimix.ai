@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, User, Phone, Send, Sparkles, AlertCircle, CheckCircle2 } from "lucide-react";
+import { useContent } from "@/contexts/ContentContext";
 
 // Dynamically import 3D canvas and morphing globe scene
 const SceneCanvas = dynamic(() => import("@/components/three/SceneCanvas"), { ssr: false });
@@ -22,6 +23,7 @@ interface FormErrors {
 }
 
 export default function Contact() {
+  const { contact } = useContent();
   const [form, setForm] = useState<FormFields>({
     name: "",
     phone: "",
@@ -100,13 +102,13 @@ export default function Contact() {
         <div className="lg:col-span-6 flex flex-col gap-8">
           <div>
             <span className="text-[10px] uppercase font-bold text-accent tracking-widest block mb-1">
-              Get In Touch
+              {contact.badge}
             </span>
             <h1 className="font-display text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white leading-none">
-              Contact <span className="text-gradient">Us</span>
+              {contact.titlePrefix} <span className="text-gradient">{contact.titleHighlight}</span>
             </h1>
             <p className="text-xs sm:text-sm text-muted-foreground font-light leading-relaxed mt-4 max-w-md">
-              Reach out to us with your details. We will get back to you shortly to discuss your custom project requirements.
+              {contact.description}
             </p>
           </div>
 
@@ -242,10 +244,10 @@ export default function Contact() {
                   <CheckCircle2 className="h-10 w-10 animate-bounce" />
                 </div>
                 <h2 className="font-display text-2xl font-bold uppercase tracking-wider text-white">
-                  Message Sent
+                  {contact.successTitle}
                 </h2>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-sm font-light">
-                  Thank you for reaching out! We have received your contact details successfully and our team will get in touch with you shortly.
+                  {contact.successDescription}
                 </p>
                 <button
                   onClick={() => {

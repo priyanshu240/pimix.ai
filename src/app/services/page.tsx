@@ -5,6 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Cpu, Bot, Eye, Terminal, Layers, ArrowRight, ShieldCheck } from "lucide-react";
+import { useContent } from "@/contexts/ContentContext";
 
 // Load 3D icons component dynamically
 const ServiceIconCanvas = dynamic(
@@ -13,15 +14,22 @@ const ServiceIconCanvas = dynamic(
 );
 
 interface ServiceCardProps {
-  id: "llm" | "agents" | "vision";
-  icon: React.ReactNode;
+  id: string;
   title: string;
   desc: string;
   specs: string[];
 }
 
-function ServiceCard({ id, icon, title, desc, specs }: ServiceCardProps) {
+function ServiceCard({ id, title, desc, specs }: ServiceCardProps) {
   const [hovered, setHovered] = useState(false);
+
+  const iconsMap: Record<string, React.ReactNode> = {
+    llm: <Cpu className="h-5 w-5" />,
+    agents: <Bot className="h-5 w-5" />,
+    vision: <Eye className="h-5 w-5" />
+  };
+
+  const icon = iconsMap[id] || <Cpu className="h-5 w-5" />;
 
   return (
     <motion.div
@@ -38,15 +46,14 @@ function ServiceCard({ id, icon, title, desc, specs }: ServiceCardProps) {
       <div>
         {/* Floating 3D WebGL Icon Canvas container */}
         <div className="w-full flex justify-center mb-6 relative">
-          <div className="absolute inset-0 m-auto w-24 h-24 bg-white/5 rounded-full blur-xl scale-75 group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-500 -z-10" />
-          <ServiceIconCanvas type={id} hovered={hovered} />
+          <div className="w-24 h-24">
+            <ServiceIconCanvas type={id as any} hovered={hovered} />
+          </div>
         </div>
 
         {/* Text Area */}
         <div className="flex items-center gap-3 mb-4">
-          <div className={`p-2.5 rounded-xl bg-white/5 border border-white/10 ${
-            hovered ? "text-accent border-accent/40" : "text-muted-foreground"
-          } transition-colors`}>
+          <div className="p-2 rounded-xl bg-white/5 border border-white/10 text-accent group-hover:bg-emerald-500/10 group-hover:border-emerald-500/30 group-hover:text-emerald-400 transition-colors duration-300">
             {icon}
           </div>
           <h3 className="font-display font-bold text-lg sm:text-xl text-white tracking-wide">
@@ -86,44 +93,7 @@ function ServiceCard({ id, icon, title, desc, specs }: ServiceCardProps) {
 }
 
 export default function Services() {
-  const offerings: ServiceCardProps[] = [
-    {
-      id: "llm",
-      icon: <Cpu className="h-5 w-5" />,
-      title: "Custom LLM Training",
-      desc: "Fine-tune open-weights neural networks targeting enterprise vocabularies. We deliver deep learning optimizations aligned with local knowledge bounds.",
-      specs: [
-        "LoRA, QLoRA & Full Parameter Tuning",
-        "Deep RAG Integration Frameworks",
-        "Quantization & Edge Node Packing",
-        "Synthesized Training Data Generation",
-      ],
-    },
-    {
-      id: "agents",
-      icon: <Bot className="h-5 w-5" />,
-      title: "Autonomous Agents",
-      desc: "Orchestrate multi-agent networks capable of stateful task execution, external tool utilization, and reasoning-driven loops (ReAct / CoT).",
-      specs: [
-        "Swarm Orchestration & Event Buses",
-        "Function Calling & Webhook Execution",
-        "Long-term Vector Memory Nodes",
-        "Human-in-the-Loop Gateway Portals",
-      ],
-    },
-    {
-      id: "vision",
-      icon: <Eye className="h-5 w-5" />,
-      title: "Computer Vision Orchestrations",
-      desc: "Deploy neural pipelines specialized in live stream classification, multi-object tracking, and zero-shot visual detection at scale.",
-      specs: [
-        "Edge Acceleration (TensorRT/ONNX)",
-        "Zero-Shot Detection & Segment Anything",
-        "Real-Time Spatial Vector Tracking",
-        "High-Throughput Stream Ingestion",
-      ],
-    },
-  ];
+  const { services } = useContent();
 
   return (
     <div className="relative min-h-screen w-full bg-[#02000a] pt-32 pb-24 px-6 overflow-hidden">
@@ -164,7 +134,7 @@ export default function Services() {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
-          {offerings.map((card) => (
+          {services.map((card) => (
             <ServiceCard key={card.id} {...card} />
           ))}
         </div>

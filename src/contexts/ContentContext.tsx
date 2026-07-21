@@ -36,6 +36,20 @@ type ContentData = {
     agentMsg2: string;
     hireResponse: string;
   };
+  services: {
+    id: string;
+    title: string;
+    desc: string;
+    specs: string[];
+  }[];
+  contact: {
+    badge: string;
+    titlePrefix: string;
+    titleHighlight: string;
+    description: string;
+    successTitle: string;
+    successDescription: string;
+  };
 };
 
 const ContentContext = createContext<ContentData | null>(null);
