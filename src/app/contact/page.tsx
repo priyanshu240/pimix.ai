@@ -40,23 +40,22 @@ export default function Contact() {
   // Compute text length for the 3D globe animation speed
   const textLength = form.name.length + form.email.length + form.phone.length;
 
-  // Real-time validation check
+  // Real-time validation check (relaxed for easier user testing)
   useEffect(() => {
     const errs: FormErrors = {};
     
-    if (form.name && form.name.length < 2) {
+    if (form.name && form.name.trim().length < 2) {
       errs.name = "Name must be at least 2 characters.";
     }
     
     if (form.email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(form.email)) {
+      if (!form.email.includes("@")) {
         errs.email = "Please input a valid email address.";
       }
     }
     
-    if (form.phone && form.phone.length < 10) {
-      errs.phone = "Phone number must be at least 10 digits.";
+    if (form.phone && form.phone.trim().length < 4) {
+      errs.phone = "Phone number must be at least 4 characters.";
     }
 
     setErrors(errs);
@@ -82,7 +81,23 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isValid) return;
+    
+    // Explicitly validate on submit to catch empty/invalid fields
+    const errs: FormErrors = {};
+    if (!form.name || form.name.trim().length < 2) {
+      errs.name = "Name must be at least 2 characters.";
+    }
+    if (!form.phone || form.phone.trim().length < 4) {
+      errs.phone = "Phone number must be at least 4 characters.";
+    }
+    if (!form.email || !form.email.includes("@")) {
+      errs.email = "Please enter a valid email address.";
+    }
+
+    setErrors(errs);
+    if (Object.keys(errs).length > 0) {
+      return;
+    }
 
     setIsSubmitting(true);
     const res = await submitContactMessage(form);
@@ -220,8 +235,8 @@ export default function Contact() {
                 {/* Submit button */}
                 <button
                   type="submit"
-                  disabled={!isValid || isSubmitting}
-                  className="w-full py-4 px-6 rounded-xl font-display text-xs font-bold uppercase tracking-wider text-black bg-white hover:bg-primary hover:text-white border border-white hover:border-primary disabled:bg-white/10 disabled:text-muted-foreground disabled:border-white/5 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2"
+                  disabled={isSubmitting}
+                  className="w-full py-4 px-6 rounded-xl font-display text-xs font-bold uppercase tracking-wider text-black bg-white hover:bg-primary hover:text-white border border-white hover:border-primary disabled:bg-white/10 disabled:text-muted-foreground disabled:border-white/5 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <>
