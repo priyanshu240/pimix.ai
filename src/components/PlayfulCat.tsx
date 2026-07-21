@@ -70,13 +70,13 @@ export default function PlayfulCat() {
       
       // Wait 1.5 seconds peeking
       await new Promise(r => setTimeout(r, 1500));
-      if (!isMounted.current || stateRef.current === "running" || stateRef.current === "hidden") return;
+      if (!isMounted.current || (stateRef.current as any) === "running" || (stateRef.current as any) === "hidden") return;
       
       // 2. Walk
       updateState("walking");
       await controls.start("walking");
       
-      if (!isMounted.current || stateRef.current === "running" || stateRef.current === "hidden") return;
+      if (!isMounted.current || (stateRef.current as any) === "running" || (stateRef.current as any) === "hidden") return;
       
       // 3. Sit
       updateState("sitting");
@@ -84,7 +84,7 @@ export default function PlayfulCat() {
       
       // Sit for 5 seconds
       await new Promise(r => setTimeout(r, 5000));
-      if (!isMounted.current || stateRef.current === "running" || stateRef.current === "hidden") return;
+      if (!isMounted.current || (stateRef.current as any) === "running" || (stateRef.current as any) === "hidden") return;
       
       // 4. Run away
       await handleScare();
