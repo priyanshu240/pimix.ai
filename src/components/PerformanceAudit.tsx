@@ -78,7 +78,7 @@ export default function PerformanceAudit() {
           </p>
         </div>
 
-        <div className="w-full max-w-2xl bg-white/5 border border-white/10 rounded-3xl p-2 md:p-8 backdrop-blur-xl shadow-2xl relative min-h-[300px] flex flex-col justify-center">
+        <div className="w-full max-w-2xl glass-panel rounded-3xl p-2 md:p-8 relative min-h-[300px] flex flex-col justify-center">
           
           <AnimatePresence mode="wait">
             

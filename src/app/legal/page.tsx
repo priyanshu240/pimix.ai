@@ -47,7 +47,7 @@ export default function LegalPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Navigation Sidebar */}
-          <nav className="lg:col-span-4 flex flex-col gap-2 bg-white/[0.02] border border-white/10 p-4 rounded-2xl">
+          <nav className="lg:col-span-4 flex flex-col gap-2 glass-panel p-4 rounded-2xl">
             {[
               { id: "privacy", label: "Privacy Policy", icon: Shield },
               { id: "terms", label: "Terms of Service", icon: Scale },
@@ -74,7 +74,7 @@ export default function LegalPage() {
           </nav>
 
           {/* Content Pane */}
-          <div className="lg:col-span-8 bg-white/[0.02] border border-white/10 p-8 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden min-h-[500px]">
+          <div className="lg:col-span-8 glass-panel p-8 md:p-10 rounded-3xl relative overflow-hidden min-h-[500px]">
             {/* Background Glow */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none" />
 

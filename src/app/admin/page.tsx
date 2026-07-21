@@ -45,7 +45,7 @@ export default function AdminDashboard() {
 
         <div className="space-y-10">
           {/* HERO SECTION */}
-          <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl">
+          <section className="glass-panel rounded-2xl p-6 md:p-8">
             <h2 className="text-xl font-bold uppercase tracking-widest text-emerald-500 mb-6 border-b border-white/10 pb-2 flex items-center gap-2">
               <LayoutTemplate className="w-5 h-5" /> Hero Section
             </h2>
@@ -82,7 +82,7 @@ export default function AdminDashboard() {
           </section>
 
           {/* SANDBOX SECTION */}
-          <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl">
+          <section className="glass-panel rounded-2xl p-6 md:p-8">
             <h2 className="text-xl font-bold uppercase tracking-widest text-cyan-500 mb-6 border-b border-white/10 pb-2 flex items-center gap-2">
               <Terminal className="w-5 h-5" /> Interactive Sandbox
             </h2>
@@ -135,7 +135,7 @@ export default function AdminDashboard() {
           </section>
 
           {/* PORTFOLIO SECTION */}
-          <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl">
+          <section className="glass-panel rounded-2xl p-6 md:p-8">
             <h2 className="text-xl font-bold uppercase tracking-widest text-blue-500 mb-6 border-b border-white/10 pb-2">Portfolio / Masterpieces</h2>
             
             <div className="space-y-6">
@@ -172,7 +172,7 @@ export default function AdminDashboard() {
           </section>
 
           {/* ROAST SECTION */}
-          <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl">
+          <section className="glass-panel rounded-2xl p-6 md:p-8">
             <h2 className="text-xl font-bold uppercase tracking-widest text-red-500 mb-6 border-b border-white/10 pb-2">Performance Roast</h2>
             
             <div className="space-y-6">
@@ -218,7 +218,7 @@ export default function AdminDashboard() {
           </section>
 
           {/* LIVING AGENT SECTION */}
-          <section className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl">
+          <section className="glass-panel rounded-2xl p-6 md:p-8">
             <h2 className="text-xl font-bold uppercase tracking-widest text-purple-500 mb-6 border-b border-white/10 pb-2 flex items-center gap-2">
               <MessageSquare className="w-5 h-5" /> Living Agent
             </h2>

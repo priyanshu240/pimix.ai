@@ -91,7 +91,7 @@ export default function ScrollytellingPortfolio() {
                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                    
                    <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-30 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                     <span className="text-emerald-400 font-mono text-xs md:text-sm mb-3 block border border-emerald-500/30 w-max px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                     <span className="text-emerald-400 font-mono text-xs md:text-sm mb-3 block border border-emerald-500/30 w-max px-3 py-1.5 rounded-full bg-black/85 backdrop-blur-lg shadow-[0_0_15px_rgba(16,185,129,0.2)]">
                        {project.category}
                      </span>
                      <h3 className="text-3xl md:text-5xl font-display font-bold text-white">
