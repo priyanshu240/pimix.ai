@@ -79,7 +79,7 @@ export default function Footer() {
         {/* Column 1: Brand Identity & Introduction */}
         <div className="flex flex-col gap-6">
           <Link href="/" className="inline-block focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded">
-            <h2 className="text-2xl font-extrabold tracking-tighter uppercase">Antigravity</h2>
+            <h2 className="text-2xl font-extrabold tracking-tighter uppercase">pimix</h2>
           </Link>
           <p className="text-zinc-400 text-sm leading-relaxed max-w-xs">
             Crafting interactive, high-performance web experiences. Defying digital constraints through elite engineering.
@@ -93,9 +93,9 @@ export default function Footer() {
               <Phone className="w-5 h-5 text-zinc-500 group-hover:text-emerald-500 transition-colors shrink-0" />
               <span>+1 (555) 123-4567</span>
             </a>
-            <a href="mailto:hello@antigravity.dev" className="flex items-center gap-3 hover:text-white transition-colors group focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded p-1 -ml-1">
+            <a href="mailto:hello@pimix.ai" className="flex items-center gap-3 hover:text-white transition-colors group focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded p-1 -ml-1">
               <Mail className="w-5 h-5 text-zinc-500 group-hover:text-emerald-500 transition-colors shrink-0" />
-              <span>hello@antigravity.dev</span>
+              <span>hello@pimix.ai</span>
             </a>
           </address>
         </div>
@@ -198,7 +198,7 @@ export default function Footer() {
       {/* Bottom Bar: Legal & Copyright */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
         <p className="text-xs text-zinc-500">
-          &copy; {new Date().getFullYear()} Antigravity. All rights reserved.
+          &copy; {new Date().getFullYear()} pimix.ai. All rights reserved.
         </p>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <Link href="/legal#privacy" className="text-xs text-zinc-500 hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-emerald-500 rounded px-1">Privacy Policy</Link>

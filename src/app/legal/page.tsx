@@ -87,7 +87,7 @@ export default function LegalPage() {
                   Last Updated: July 2026
                 </p>
                 <p className="text-zinc-300 leading-relaxed text-sm">
-                  At Antigravity, we prioritize the protection and confidentiality of your personal information. This Privacy Policy details how we collect, process, and protect your digital telemetry and details when interacting with our online services.
+                  At pimix.ai, we prioritize the protection and confidentiality of your personal information. This Privacy Policy details how we collect, process, and protect your digital telemetry and details when interacting with our online services.
                 </p>
                 <h3 className="text-lg font-bold text-white mt-8">1. Telemetry Collection</h3>
                 <p className="text-zinc-300 leading-relaxed text-sm">
@@ -109,11 +109,11 @@ export default function LegalPage() {
                   Last Updated: July 2026
                 </p>
                 <p className="text-zinc-300 leading-relaxed text-sm">
-                  By accessing and browsing the Antigravity (pimix.ai) website, you acknowledge and agree to the following terms, conditions, and operational parameters.
+                  By accessing and browsing the pimix.ai website, you acknowledge and agree to the following terms, conditions, and operational parameters.
                 </p>
                 <h3 className="text-lg font-bold text-white mt-8">1. Proprietary Digital Assets</h3>
                 <p className="text-zinc-300 leading-relaxed text-sm">
-                  All 3D models, shaders, particle networks, responsive components, and custom AI agent codeblocks rendered on this domain are the intellectual property of Antigravity and cannot be reverse-engineered or redistributed without explicit authorization.
+                  All 3D models, shaders, particle networks, responsive components, and custom AI agent codeblocks rendered on this domain are the intellectual property of pimix.ai and cannot be reverse-engineered or redistributed without explicit authorization.
                 </p>
                 <h3 className="text-lg font-bold text-white">2. Operational Disclaimers</h3>
                 <p className="text-zinc-300 leading-relaxed text-sm">
@@ -153,7 +153,7 @@ export default function LegalPage() {
                   Last Updated: July 2026
                 </p>
                 <p className="text-zinc-300 leading-relaxed text-sm">
-                  Antigravity is committed to ensuring digital accessibility for all users, including those utilizing screen readers or keyboard navigation.
+                  pimix.ai is committed to ensuring digital accessibility for all users, including those utilizing screen readers or keyboard navigation.
                 </p>
                 <h3 className="text-lg font-bold text-white mt-8">1. Compliance Targets</h3>
                 <p className="text-zinc-300 leading-relaxed text-sm">
