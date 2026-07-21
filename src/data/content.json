@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "title": "WE BUILD THE WEB<br />AGENCY",
+    "subtitle": "Click anywhere to breach the surface.",
+    "description": "An elite digital agency. We structure the chaos of the web into high-performance, visually stunning masterpieces."
+  },
+  "roast": {
+    "badge": "Is your website losing you money?",
+    "titlePrefix": "The",
+    "titleHighlight": "Performance Roast",
+    "description": "Drop your URL below. We will run a simulated deep-scan audit and show you exactly where your current web agency failed you."
+  },
+  "sandbox": {
+    "titlePrefix": "Engineering",
+    "titleHighlight": "Excellence",
+    "description": "Interact with our development sandbox. We don't just write code; we architect dynamic, high-performance digital ecosystems.",
+    "button1": "Optimize Speed",
+    "button2": "Deploy 3D Architecture",
+    "button3": "Inject AI Agents"
+  },
+  "portfolio": {
+    "titlePrefix": "Our",
+    "titleHighlight": "Masterpieces",
+    "description": "Scroll down to interact with our cinematic portfolio. We build experiences that break the mold of traditional web design."
+  },
+  "agent": {
+    "titlePrefix": "Meet Your",
+    "titleHighlight": "Living Agent",
+    "description": "Our sites are alive. This isn't a pre-recorded chat—this is a terminal connected directly to the DOM. Test it out.",
+    "systemMsg": "piMix LIVING AGENT v1.0 INITIALIZED.",
+    "agentMsg1": "I am an AI assistant integrated directly into the DOM of this website. I don't just answer questions—I can physically control the browser.",
+    "agentMsg2": "Try giving me a command like 'scroll down', 'red theme', or type 'hire' to book a consultation.",
+    "hireResponse": "Every project we engineer is entirely custom based on your brand's unique requirements. Shall I open the booking calendar so we can discuss your vision? (Type 'yes' to proceed)"
+  }
+}
