@@ -14,6 +14,7 @@ export default function ZeroGravityIntro({ onComplete }: { onComplete: () => voi
     if (hasSeenIntro) {
       setStage(4); // Skip intro completely
       onComplete(); // Immediately trigger completion if skipped
+      window.dispatchEvent(new Event("introComplete"));
       return;
     }
 
@@ -73,6 +74,7 @@ export default function ZeroGravityIntro({ onComplete }: { onComplete: () => voi
     playSciFiSound();
     setStage(3); // Stage 3: Exit animation
     sessionStorage.setItem("hasSeenIntro", "true");
+    window.dispatchEvent(new Event("introComplete"));
     
     // Call onComplete after the exit animation completes (1 second)
     setTimeout(() => {
@@ -173,17 +175,9 @@ export default function ZeroGravityIntro({ onComplete }: { onComplete: () => voi
                     ease: "easeInOut" 
                   }}
                 >
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-6">
-                    <Sparkles className="w-5 h-5 text-primary" />
-                  </div>
-                  
-                  <h2 className="font-display text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-4">
-                    Welcome to <span className="text-gradient">piMix</span>
-                  </h2>
-                  
-                  <p className="text-white/70 font-medium text-sm md:text-base leading-relaxed mb-10 max-w-xs">
-                    Prepare to experience an autonomous zero-gravity marketing ecosystem.
-                  </p>
+                  <h1 className="font-display text-5xl md:text-7xl font-extrabold tracking-tighter uppercase text-gradient mb-12 select-none">
+                    piMix
+                  </h1>
 
                   <button
                     onClick={handleEnterExperience}

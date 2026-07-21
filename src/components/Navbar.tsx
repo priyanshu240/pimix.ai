@@ -9,6 +9,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,10 +17,27 @@ export default function Navbar() {
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // Check if the intro sequence was already completed/bypassed
+    const hasSeenIntro = sessionStorage.getItem("hasSeenIntro");
+    if (hasSeenIntro) {
+      setShowNavbar(true);
+    }
+
+    const handleIntroComplete = () => {
+      setShowNavbar(true);
+    };
+
+    window.addEventListener("introComplete", handleIntroComplete);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("introComplete", handleIntroComplete);
+    };
   }, []);
 
   if (pathname === "/admin") return null;
+  if (!showNavbar && pathname === "/") return null;
 
   const navLinks = [
     { name: "Home", path: "/" },
