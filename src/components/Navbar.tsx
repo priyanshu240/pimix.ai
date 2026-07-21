@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
@@ -8,6 +8,16 @@ import { motion } from "framer-motion";
 export default function Navbar() {
   const pathname = usePathname();
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   if (pathname === "/admin") return null;
 
@@ -27,7 +37,11 @@ export default function Navbar() {
       className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-2xl"
     >
       <nav 
-        className="flex items-center justify-between px-2 py-2 glass-panel rounded-full overflow-hidden w-full relative"
+        className={`flex items-center justify-between px-2 py-2 rounded-full overflow-hidden w-full relative transition-all duration-500 ${
+          isScrolled 
+            ? "bg-[#080808]/96 border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl" 
+            : "glass-panel"
+        }`}
         onMouseLeave={() => setHoveredPath(null)}
       >
         {navLinks.map((link) => {
