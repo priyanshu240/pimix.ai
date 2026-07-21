@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, User, Building, MessageSquare, Send, Sparkles, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Mail, User, Phone, Send, Sparkles, AlertCircle, CheckCircle2 } from "lucide-react";
 
 // Dynamically import 3D canvas and morphing globe scene
 const SceneCanvas = dynamic(() => import("@/components/three/SceneCanvas"), { ssr: false });
@@ -11,23 +11,21 @@ const MorphGlobeScene = dynamic(() => import("@/components/three/MorphGlobeScene
 
 interface FormFields {
   name: string;
+  phone: string;
   email: string;
-  company: string;
-  message: string;
 }
 
 interface FormErrors {
   name?: string;
   email?: string;
-  message?: string;
+  phone?: string;
 }
 
 export default function Contact() {
   const [form, setForm] = useState<FormFields>({
     name: "",
+    phone: "",
     email: "",
-    company: "",
-    message: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -37,7 +35,7 @@ export default function Contact() {
   const [isValid, setIsValid] = useState(false);
 
   // Compute text length for the 3D globe animation speed
-  const textLength = form.name.length + form.email.length + form.company.length + form.message.length;
+  const textLength = form.name.length + form.email.length + form.phone.length;
 
   // Real-time validation check
   useEffect(() => {
@@ -54,14 +52,14 @@ export default function Contact() {
       }
     }
     
-    if (form.message && form.message.length < 10) {
-      errs.message = "Message must be at least 10 characters.";
+    if (form.phone && form.phone.length < 10) {
+      errs.phone = "Phone number must be at least 10 digits.";
     }
 
     setErrors(errs);
 
     // Form is valid if required fields are filled and there are no errors
-    const formHasRequired = !!(form.name && form.email && form.message);
+    const formHasRequired = !!(form.name && form.email && form.phone);
     const formHasNoErrors = Object.keys(errs).length === 0;
     setIsValid(formHasRequired && formHasNoErrors);
   }, [form]);
@@ -85,7 +83,7 @@ export default function Contact() {
 
     setIsSubmitting(true);
     // Simulate API call to secure the lead
-    await new Promise((resolve) => setTimeout(resolve, 2500));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsSubmitting(false);
     setIsSubmitted(true);
   };
@@ -102,13 +100,13 @@ export default function Contact() {
         <div className="lg:col-span-6 flex flex-col gap-8">
           <div>
             <span className="text-[10px] uppercase font-bold text-accent tracking-widest block mb-1">
-              Secure Communications Node
+              Get In Touch
             </span>
             <h1 className="font-display text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white leading-none">
-              Initiate <span className="text-gradient">Uplink</span>
+              Contact <span className="text-gradient">Us</span>
             </h1>
             <p className="text-xs sm:text-sm text-muted-foreground font-light leading-relaxed mt-4 max-w-md">
-              Secure your system architecture review. Submit your payload and watch our telemetry engine synchronize.
+              Reach out to us with your details. We will get back to you shortly to discuss your custom project requirements.
             </p>
           </div>
 
@@ -153,7 +151,37 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* 2. Email Input */}
+                {/* 2. Phone Input */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="phone" className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
+                    <Phone className="h-3.5 w-3.5" /> Phone Number <span className="text-primary">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={form.phone}
+                      onChange={handleInputChange}
+                      onFocus={() => handleFocus("phone")}
+                      onBlur={handleBlur}
+                      required
+                      placeholder="+1 (555) 000-0000"
+                      className={`w-full px-4 py-3 rounded-xl text-sm bg-white/5 border text-white placeholder-muted-foreground/60 focus:outline-none transition-all duration-300 ${
+                        activeField === "phone" 
+                          ? "border-accent/60 shadow-[0_0_15px_rgba(6,182,212,0.15)] bg-accent/5" 
+                          : "border-white/10 hover:border-white/20"
+                      }`}
+                    />
+                    {errors.phone && (
+                      <span className="text-[10px] text-pink-500 font-medium mt-1 flex items-center gap-1">
+                        <AlertCircle className="h-3 w-3" /> {errors.phone}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* 3. Email Input */}
                 <div className="flex flex-col gap-2">
                   <label htmlFor="email" className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
                     <Mail className="h-3.5 w-3.5" /> Email Address <span className="text-primary">*</span>
@@ -171,65 +199,13 @@ export default function Contact() {
                       placeholder="shepard@alliance.mil"
                       className={`w-full px-4 py-3 rounded-xl text-sm bg-white/5 border text-white placeholder-muted-foreground/60 focus:outline-none transition-all duration-300 ${
                         activeField === "email" 
-                          ? "border-accent/60 shadow-[0_0_15px_rgba(6,182,212,0.15)] bg-accent/5" 
+                          ? "border-primary/60 shadow-[0_0_15px_rgba(139,92,246,0.15)] bg-primary/5" 
                           : "border-white/10 hover:border-white/20"
                       }`}
                     />
                     {errors.email && (
                       <span className="text-[10px] text-pink-500 font-medium mt-1 flex items-center gap-1">
                         <AlertCircle className="h-3 w-3" /> {errors.email}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* 3. Company Input */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="company" className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
-                    <Building className="h-3.5 w-3.5" /> Corporation / Project
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    value={form.company}
-                    onChange={handleInputChange}
-                    onFocus={() => handleFocus("company")}
-                    onBlur={handleBlur}
-                    placeholder="Systems Alliance"
-                    className={`w-full px-4 py-3 rounded-xl text-sm bg-white/5 border text-white placeholder-muted-foreground/60 focus:outline-none transition-all duration-300 ${
-                      activeField === "company" 
-                        ? "border-pink-500/60 shadow-[0_0_15px_rgba(236,72,153,0.15)] bg-pink-500/5" 
-                        : "border-white/10 hover:border-white/20"
-                    }`}
-                  />
-                </div>
-
-                {/* 4. Message Input */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="message" className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
-                    <MessageSquare className="h-3.5 w-3.5" /> System Payload <span className="text-primary">*</span>
-                  </label>
-                  <div className="relative">
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={form.message}
-                      onChange={handleInputChange}
-                      onFocus={() => handleFocus("message")}
-                      onBlur={handleBlur}
-                      required
-                      rows={4}
-                      placeholder="Outline your AI pipeline requirement or agent swarm architecture..."
-                      className={`w-full px-4 py-3 rounded-xl text-sm bg-white/5 border text-white placeholder-muted-foreground/60 focus:outline-none transition-all duration-300 resize-none ${
-                        activeField === "message" 
-                          ? "border-primary/60 shadow-[0_0_15px_rgba(139,92,246,0.15)] bg-primary/5" 
-                          : "border-white/10 hover:border-white/20"
-                      }`}
-                    />
-                    {errors.message && (
-                      <span className="text-[10px] text-pink-500 font-medium mt-1 flex items-center gap-1">
-                        <AlertCircle className="h-3 w-3" /> {errors.message}
                       </span>
                     )}
                   </div>
@@ -244,12 +220,12 @@ export default function Contact() {
                   {isSubmitting ? (
                     <>
                       <Sparkles className="h-4 w-4 animate-spin" />
-                      Encrypting & Launching Payload...
+                      Sending Details...
                     </>
                   ) : (
                     <>
                       <Send className="h-3.5 w-3.5" />
-                      Initiate Quantum Uplink
+                      Send Message
                     </>
                   )}
                 </button>
@@ -266,19 +242,19 @@ export default function Contact() {
                   <CheckCircle2 className="h-10 w-10 animate-bounce" />
                 </div>
                 <h2 className="font-display text-2xl font-bold uppercase tracking-wider text-white">
-                  Uplink Secured
+                  Message Sent
                 </h2>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-sm font-light">
-                  Your payload has bypassed atmospheric gravity barriers and is currently being digested by our intelligence coordinators. Anticipate orbital contact within 8 telemetry ticks.
+                  Thank you for reaching out! We have received your contact details successfully and our team will get in touch with you shortly.
                 </p>
                 <button
                   onClick={() => {
-                    setForm({ name: "", email: "", company: "", message: "" });
+                    setForm({ name: "", email: "", phone: "" });
                     setIsSubmitted(false);
                   }}
                   className="px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-white/5 border border-white/10 hover:border-accent hover:text-accent transition-colors"
                 >
-                  Re-Open Channels
+                  Back to Form
                 </button>
               </motion.div>
             )}

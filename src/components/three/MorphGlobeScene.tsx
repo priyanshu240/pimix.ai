@@ -5,7 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 interface MorphGlobeSceneProps {
-  activeField: "name" | "email" | "company" | "message" | null;
+  activeField: "name" | "email" | "phone" | null;
   textLength: number;
   isValid: boolean;
 }
@@ -45,7 +45,7 @@ export default function MorphGlobeScene({ activeField, textLength, isValid }: Mo
       ring1Ref.current.rotation.x = Math.PI / 2 + Math.sin(time * 0.8) * 0.1;
       ring1Ref.current.rotation.y = time * 0.5 * speedMultiplier;
       // Change ring scale depending on focused field
-      const targetScale = activeField === "company" ? 1.4 : 1.15;
+      const targetScale = activeField === "phone" ? 1.4 : 1.15;
       ring1Ref.current.scale.x = THREE.MathUtils.lerp(ring1Ref.current.scale.x, targetScale, 0.1);
       ring1Ref.current.scale.y = THREE.MathUtils.lerp(ring1Ref.current.scale.y, targetScale, 0.1);
     }
@@ -70,13 +70,10 @@ export default function MorphGlobeScene({ activeField, textLength, isValid }: Mo
       if (activeField === "name") {
         amplitude = 0.18;
         frequency = 1.5; // slow undulating wave
-      } else if (activeField === "message") {
-        amplitude = 0.32; // heavy morphing singularity
-        frequency = 4.0; // rapid ripples
       } else if (activeField === "email") {
         amplitude = 0.12;
         frequency = 5.0; // high frequency vibrations
-      } else if (activeField === "company") {
+      } else if (activeField === "phone") {
         amplitude = 0.22;
         frequency = 2.5;
       }
