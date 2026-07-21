@@ -68,7 +68,11 @@ export default function Contact() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    let cleanValue = value;
+    if (name === "email") {
+      cleanValue = value.replace(/\s+/g, ""); // Strip out accidentally typed spaces in email
+    }
+    setForm((prev) => ({ ...prev, [name]: cleanValue }));
   };
 
   const handleFocus = (field: keyof FormFields) => {
@@ -135,6 +139,7 @@ export default function Contact() {
             {!isSubmitted ? (
               <motion.form
                 key="form"
+                noValidate
                 onSubmit={handleSubmit}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
