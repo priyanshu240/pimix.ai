@@ -9,6 +9,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
+  if (pathname === "/admin") return null;
+
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Services", path: "/services" },

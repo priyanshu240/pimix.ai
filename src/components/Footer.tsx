@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowUp, 
@@ -42,7 +43,10 @@ const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function Footer() {
+  const pathname = usePathname();
   const [showBackToTop, setShowBackToTop] = useState(false);
+
+  if (pathname === "/admin") return null;
 
   // Dynamic back-to-top visibility based on scroll depth
   useEffect(() => {
