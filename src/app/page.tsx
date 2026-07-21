@@ -16,6 +16,7 @@ import ScrollytellingPortfolio from "@/components/ScrollytellingPortfolio";
 import PerformanceAudit from "@/components/PerformanceAudit";
 import AgentChat from "@/components/AgentChat";
 import ScrollThemeBackground from "@/components/ScrollThemeBackground";
+import ZeroGravityIntro from "@/components/ZeroGravityIntro";
 import { useContent } from "@/contexts/ContentContext";
 
 const testimonialsData = [
@@ -42,6 +43,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen text-white font-sans selection:bg-emerald-500/30">
+      <ZeroGravityIntro onComplete={() => setIsRevealed(true)} />
       <ScrollThemeBackground />
       
       {/* Hero Section */}
@@ -82,14 +84,7 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* Call to action to click */}
-        <motion.div 
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 z-40 text-white/50 text-xs sm:text-sm tracking-[0.3em] uppercase font-mono pointer-events-none"
-          animate={{ opacity: isRevealed ? 0 : [0.2, 1, 0.2] }}
-          transition={{ repeat: Infinity, duration: 2.5 }}
-        >
-          [ Click to Reveal ]
-        </motion.div>
+
 
         {/* piMix Text & Animated Cat - Moved to upper left */}
         <div className="absolute top-8 left-8 md:left-12 z-40 pointer-events-auto flex items-center mix-blend-difference text-white">
