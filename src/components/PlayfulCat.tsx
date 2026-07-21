@@ -28,7 +28,7 @@ export default function PlayfulCat() {
     walking: { x: 80, opacity: 1, scaleX: 1, transition: { duration: 1.5, ease: "linear" } },
     sitting: { x: 80, opacity: 1, scaleX: 1 },
     running: { x: -80, opacity: 0, scaleX: -1, transition: { duration: 0.6, ease: "easeIn" } }, // Flipped to run backwards
-  };
+  } as const;
 
   const tailVariants = {
     wag: { rotate: [0, 15, -10, 0], transition: { duration: 1.5, repeat: Infinity } },
